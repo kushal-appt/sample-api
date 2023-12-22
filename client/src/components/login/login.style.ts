@@ -9,7 +9,6 @@ export const loginStyle = createUseStyles({
        justifyContent: "center",
        paddingLeft: "80px",
        boxSizing: "border-box",
-       border:"1px solid"
     },
 
     register : {

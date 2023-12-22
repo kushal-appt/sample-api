@@ -56,10 +56,36 @@ export const bodyStyles = createUseStyles({
         justifyContent:"space-around",
         alignItems:"center",
     },
-    toolsConatiner :{
+    productContainer :{
         width:"97%",
         height:"600px",
-        border:"1px solid",
-        margin:"20px"
+        display:"flex",
+        margin:"20px",
+    },
+    toolsContainer : {
+        width:"60%",
+        height:"340px",
+        backgroundColor:"#ffff"
+    },
+    product:{
+        width:"100%",
+        height:"290px",
+        marginTop:"10px",
+        display:"flex",
+        flexFlow:"wrap",
+        justifyContent:"center"
+    },
+    productDetails:{
+        height:"24px",
+        display:"flex",
+        alignItems:"center",
+        
+    },
+    graphDetailsContainer :{
+        width:"40%",
+        height:"600px",
+        display:"flex",
+        justifyContent:"center",
+        flexFlow:"wrap"
     }
 })
