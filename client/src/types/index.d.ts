@@ -15,7 +15,8 @@ type errortype = {
 type userDetailsType ={
     email?:string,
     password?:string,
-    jwt?:string
+    jwt?:string,
+    
 }
 
 type userDetailSlice = {
@@ -30,11 +31,27 @@ type cardType={
     image:any
 }
 
+type TaskPayloadType<T> = {
+    id: string;
+    data: T;
+}
+type CommonStateType = {
+    error?: FriendlyError;
+    tracking: Dict<ProcessingState>;
+}
+
+type Dict<T> = {
+    [key: string]: T;
+};
+
 
 export {
     user,
     errortype,
     userDetailSlice,
     userDetailsType,
-    cardType
+    cardType,
+    TaskPayloadType,
+    CommonStateType,
+    Dict
 }

@@ -10,7 +10,7 @@ import { userDetailSlice } from './types';
 
 
 function App() {
-  const user = true
+  const user = false
   const router = createBrowserRouter([
    user ?  {
       path:"/",

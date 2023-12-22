@@ -3,27 +3,25 @@ import { signupStyles } from "./signup.style";
 import { Button, Checkbox, Form, Input } from "antd";
 import { user } from "../../types";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addUser } from "../../redux/userSlice";
 
 const Signup: React.FC = () => {
   const classes = signupStyles();
-  const dispatch = useDispatch();
+
   const [userDetails, setUserDetails] = useState<user>({
     name: "",
     email: "",
     password: "",
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onFinishFailed = (errorInfo: string[]) => {
     console.log("Failed:", errorInfo);
   };
 
-  const handleSubmit = () => {
-    dispatch(addUser(userDetails))
-    navigate("/")
+  const handleSubmit = (values: user) => {
+    console.log(values);
+    navigate("/");
   };
   return (
     <div className={classes.formcontainer}>
@@ -41,54 +39,44 @@ const Signup: React.FC = () => {
       >
         <Form.Item
           label="Username"
-          name="username"
+          name="name"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
-          <Input
-            onChange={(e) =>
-              setUserDetails((prev) => ({ ...prev, name: e.target.value }))
-            }
-            value={userDetails.name}
-          />
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="Email"
-          name="Email"
-          rules={[{ required: true, message: "Please input your email!" },
-          {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
-          }]}
+          name="email"
+          rules={[
+            { required: true, message: "Please input your email!" },
+            {
+              type: "email",
+              message: "The input is not valid E-mail!",
+            },
+          ]}
           hasFeedback
         >
-          <Input
-            onChange={(e) =>
-              setUserDetails((prev) => ({ ...prev, email: e.target.value }))
-            }
-            value={userDetails.email}
-          />
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="Password"
           name="password"
-          rules={[{ required: true, message: "Please input your password!" }, { min: 8, message: 'Password must have a minimum length of 8' },
-          {
-              pattern: new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'),
-              message: 'Password must contain at least one lowercase letter, uppercase letter, number, and special character'
-          }]}
+          rules={[
+            { required: true, message: "Please input your password!" },
+            { min: 8, message: "Password must have a minimum length of 8" },
+            {
+              pattern: new RegExp(
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"
+              ),
+              message:
+                "Password must contain at least one lowercase letter, uppercase letter, number, and special character",
+            },
+          ]}
           hasFeedback
         >
-          <Input.Password
-            onChange={(e) =>
-              setUserDetails((prev) => ({
-                ...prev,
-                password: e.target.value,
-              }))
-            }
-            value={userDetails.password}
-          />
+          <Input.Password />
         </Form.Item>
 
         <Form.Item

@@ -1,0 +1,240 @@
+{
+  // Place your web workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  // "Print to console": {
+  // 	"scope": "javascript,typescript",
+  // 	"prefix": "log",
+  // 	"body": [
+  // 		"console.log('$1');",
+  // 		"$2"
+  // 	],
+  // 	"description": "Log output to console"
+  // }
+  "Page": {
+    "prefix": "page",
+    "body": [
+      "import React from 'react';",
+      "type $1PageProps = {};",
+      "const DefaultPage: React.FC<$1PageProps> = () => {",
+      "    return (",
+      "        <>",
+      "            <h1>$1Page</h1>",
+      "        </>",
+      "    );",
+      "};",
+      "export default $1Page;"
+    ],
+    "description": "Page"
+  },
+  "Connected Page": {
+    "prefix": "connected-page",
+    "body": [
+      "import React from 'react';",
+      "import { connect, RootStateOrAny } from 'react-redux';",
+      "",
+      "export const 1Page = ({}) => {",
+      "    return (",
+      "        <>",
+      "            <h1>$1Page</h1>",
+      "        </>",
+      "    );",
+      "};",
+      "",
+      "const mapStateToProps = (state: RootStateOrAny) => ({});",
+      "",
+      "const mapDispatchToProps = (dispatch: any)=>({});",
+      "",
+      "const Connected$1Page = connect(mapStateToProps, mapDispatchToProps)($1Page);",
+      "",
+      "export default Connected$1Page;"
+    ],
+    "description": "Connected Page"
+  },
+  "Sagas": {
+    "prefix": "sagas",
+    "body": [
+      "function* ${1:fetch}${2:Entity}s() {",
+      "    try {",
+      "        const ${2/(.*)/${1:/downcase}/}s: ${2/(.*)/${1:/capitalize}/}[] = yield Api.${1}${2/(.*)/${1:/capitalize}/}s();",
+      "        yield put($3Actions.$1${2/(.*)/${1:/capitalize}/}sSucceeded(${2/(.*)/${1:/downcase}/}s));",
+      "    } catch (error) {",
+      "        yield put(",
+      "            $3Actions.$1${2/(.*)/${1:/capitalize}/}sError(new FriendlyError(error, Messages.${1/(.*)/${1:/upcase}/}_${2/(.*)/${1:/upcase}/}_API_ERR)),",
+      "        );",
+      "    }",
+      "}",
+      "function* watch${1/(.*)/${1:/capitalize}/}${2/(.*)/${1:/capitalize}/}sStart() {",
+      "    yield takeLatest($3ActionTypes.${1/(.*)/${1:/upcase}/}_${2/(.*)/${1:/upcase}/}_START, $1${2/(.*)/${1:/capitalize}/}s);",
+      "}",
+      "",
+      "//call(watch${1/(.*)/${1:/capitalize}/}${2/(.*)/${1:/capitalize}/}sStart),"
+    ],
+    "description": "Sagas"
+  },
+  "action-types": {
+    "scope": "javascript,typescript",
+    "prefix": "action-types",
+    "body": [
+      "export const $1_START = \"$1_START\";",
+      "export const $1_SUCCEEDED = \"$1_SUCCEEDED\"; ",
+      "export const $1_ERROR = \"$1_ERROR\";",
+      "$2"
+    ],
+    "description": "Log output to console"
+  },
+  "Actions": {
+    "prefix": "actions",
+    "body": [
+      "",
+      "export function ${1:fetch}${2:Entity}Start($3: $4): ActionResult {",
+      "    return { type: $7ActionTypes.${1/(.*)/${1:/upcase}/}_${2/(.*)/${1:/upcase}/}_START, payload: { $3 } };",
+      "}",
+      "export function ${1:fetch}${2:Entity}Succeeded($5: $6): ActionResult {",
+      "    return { type: $7ActionTypes.${1/(.*)/${1:/upcase}/}_${2/(.*)/${1:/upcase}/}_SUCCEEDED, payload: { $5 } };",
+      "}",
+      "export function ${1:fetch}${2:Entity}Error(error: FriendlyError): ActionResult {",
+      "    return { type: $7ActionTypes.${1/(.*)/${1:/upcase}/}_${2/(.*)/${1:/upcase}/}_ERROR, payload: { error } };",
+      "}"
+    ],
+    "description": "Actions"
+  },
+  "Query": {
+    "prefix": "query",
+    "body": [
+      "export async function ${1:fetch}${2:Entity}s(): Promise<$2[]> {",
+      "    const query = ` {",
+      "        ${2/(.*)/${1:/upcase}/}s {",
+      "          id",
+      "          name",
+      "        }",
+      "      }",
+      "      `;",
+      "    const response = await axios.post(baseUrl, { query });",
+      "    if (response && response.data && response.status === 200) {",
+      "        if (response.data.errors) {",
+      "            throw new Error(response.data.errors[0].message);",
+      "        }",
+      "        return plainToClass($2, response.data.data.${1/(.*)/${1:/downcase}/}s as Object[]);",
+      "    }",
+      "    throw new Error(Messages.FETCH_${1/(.*)/${1:/upcase}/}S_API_ERR);",
+      "}"
+    ],
+    "description": "Query"
+  },
+  "Mutation": {
+    "prefix": "mutation",
+    "body": [
+      "export async function ${1:create}${2:Entity}(${2/(.*)/${1:/camelcase}/}: $2): Promise<$2> {",
+      "    const query = ` mutation {",
+      "        $1$2(data: { name: \"${${2/(.*)/${1:/camelcase}/}.name}\"}) {",
+      "            id",
+      "            name",
+      "            createdOn",
+      "            updatedOn ",
+      "        }",
+      "      }",
+      "      `;",
+      "    const response = await axios.post(baseUrl, { query });",
+      "    if (response && response.data && response.status === 200) {",
+      "        if (response.data.errors) {",
+      "            throw new Error(response.data.errors[0].message);",
+      "        }",
+      "        return plainToClass($2, response.data.data.$1$2 as Object);",
+      "    }",
+      "    throw new Error(Messages.${1/(.*)/${1:/upcase}/}_${2/(.*)/${1:/upcase}/}_API_ERR);",
+      "}"
+    ],
+    "description": "Mutation"
+  },
+  "Reducer": {
+    "prefix": "reducer-entry",
+    "body": [
+      "[ActionTypes.${1/(.*)/${1:/upcase}/}_${2/(.*)/${1:/upcase}/}_START]: ${1:fetch}${2:Entity}Start,",
+      "[ActionTypes.${1/(.*)/${1:/upcase}/}_${2/(.*)/${1:/upcase}/}_SUCCEEDED]: ${1:fetch}${2:Entity}Succeeded,",
+      "[ActionTypes.${1/(.*)/${1:/upcase}/}_${2/(.*)/${1:/upcase}/}_ERROR]: ${1:fetch}${2:Entity}Error,"
+    ],
+    "description": "Reducer"
+  },
+  "Reducer implmentation": {
+    "prefix": "reducer-handler",
+    "body": [
+      "function ${1:fetch}${2:Entity}Start(state: RootStateOrAny) {",
+      "    return {",
+      "        ...state,",
+      "        processingState: { status: ProcessingType.InProcess },",
+      "    };",
+      "}",
+      "",
+      "function ${1:fetch}${2:Entity}Succeeded(state: RootStateOrAny, action: ActionResult) {",
+      "    return {",
+      "        ...state,",
+      "        error: null,",
+      "        processingState: { status: ProcessingType.Success },",
+      "        $3: action.payload.${2/(.*)/${1:/camelcase}/},",
+      "    };",
+      "}",
+      "",
+      "function ${1:fetch}${2:Entity}Error(state: RootStateOrAny, action: ActionResult) {",
+      "    return {",
+      "        ...state,",
+      "        error: action.payload.error,",
+      "        processingState: {",
+      "            status: ProcessingType.Failure,",
+      "            message: action.payload.error.displayMessage,",
+      "        },",
+      "    };",
+      "}"
+    ],
+    "description": "Reducer implmentation"
+  },
+  "Dispatch": {
+    "scope": "javascript,typescript",
+    "prefix": "dispatch",
+    "body": ["$1: ($2: $3) => dispatch(Actions.$1Start($2)),", "$4"],
+    "description": "convert to connected component"
+  },
+  "Selector": {
+    "prefix": "selector",
+    "body": [
+      "export const select${1/(.*)/${1:/capitalize}/} = (state: RootStateOrAny) => state?.${2:common}?.$1;\","
+    ],
+    "description": "Selector"
+  },
+  "create-reducer": {
+    "scope": "javascript,typescript",
+    "prefix": "reducer",
+    "body": [
+      "const $1Reducer = createReducer(initialState, {});",
+      "export default $1Reducer;"
+    ],
+    "description": "Reducer"
+  },
+  "message": {
+    "scope": "javascript,typescript",
+    "prefix": "message-entry",
+    "description": "Message entry",
+    "body": "$1_API_ERR: 'Error in processing your request, Please try again',"
+  },
+  "Component": {
+    "prefix": "component",
+    "body": [
+      "import React from 'react';",
+      "",
+      "type ${1:Name}ComponentProps = {};",
+      "const $1Component: React.FC<$1ComponentProps> = ({}) => {",
+      "    return (",
+      "        <div>",
+      "            <h2>$1Component</h2>",
+      "        </div>",
+      "    );",
+      "};",
+      "export default $1Component;"
+    ],
+    "description": "Component"
+  }
+}

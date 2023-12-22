@@ -8,7 +8,7 @@ import pro from "../../assets/Image5.png";
 import Bootstrap from "../../assets/Image4.png";
 import React from "../../assets/Image3.png";
 import { Card, Flex } from "antd";
-const Body: React.FC = () => {
+export const Body: React.FC = () => {
   const classes = bodyStyles();
 
   const cards: cardType[] = [
@@ -202,5 +202,3 @@ const Body: React.FC = () => {
     </div>
   );
 };
-
-export default Body;
