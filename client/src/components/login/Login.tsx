@@ -13,7 +13,9 @@ const Login: React.FC = () => {
 
   const navigate = useNavigate()
 
-  const onFinish = () => {};
+  const onFinish = () => {
+    
+  };
 
   const handleRegister = () => {
     navigate("/signup")

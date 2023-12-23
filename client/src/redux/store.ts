@@ -16,6 +16,7 @@ const store = configureStore({
     ...rootReducers,
   },
   middleware,
+  devTools:true
 });
 
 sagaMiddleware.run(rootSaga);

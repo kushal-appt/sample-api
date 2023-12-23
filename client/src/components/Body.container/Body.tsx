@@ -7,7 +7,7 @@ import Alipa from "../../assets/Image6.png";
 import pro from "../../assets/Image5.png";
 import Bootstrap from "../../assets/Image4.png";
 import React from "../../assets/Image3.png";
-import { Card, Flex } from "antd";
+import { Card } from "antd";
 export const Body: React.FC = () => {
   const classes = bodyStyles();
 
